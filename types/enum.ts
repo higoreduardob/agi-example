@@ -1,0 +1,6 @@
+export enum GrainPropsType {
+  TEMPERATURE = 'TEMPERATURE',
+  HUMIDITY = 'HUMIDITY',
+  CARBONEDIOXIDE = 'CARBONEDIOXIDE',
+  ALL = 'ALL',
+}

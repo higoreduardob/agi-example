@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cable {
+  id       String @id @default(cuid())
+  name     String
+  position Int[]
+
+  createdAt DateTime @default(now())
+
+  properties CableProperty[]
+}
+
+model CableProperty {
+  id String @id @default(cuid())
+
+  temperature     Int[]
+  humidity        Int[]
+  carboneDioxide  Int[]
+  inactiveSensors Int[]
+
+  createdAt DateTime @default(now())
+
+  cableId String
+  cable   Cable  @relation(fields: [cableId], references: [id], onDelete: Cascade)
+}
