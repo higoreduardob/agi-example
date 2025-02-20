@@ -1,13 +1,18 @@
 import { z } from 'zod'
 import { Hono } from 'hono'
-import { createId } from '@paralleldrive/cuid2'
 import { zValidator } from '@hono/zod-validator'
 
 import { db } from '@/lib/db'
 
-import { insertCableSchema } from '@/features/cables/schema'
+import {
+  insertCablePropertySchema,
+  insertCableSchema,
+} from '@/features/cables/schema'
 
 const app = new Hono()
+  .get('/hello', (c) => {
+    return c.text('Hono!')
+  })
   .post('/', zValidator('json', insertCableSchema), async (c) => {
     const validatedFields = c.req.valid('json')
 
@@ -15,16 +20,26 @@ const app = new Hono()
 
     await db.cable.create({
       data: {
-        id: createId(),
         ...validatedFields,
       },
     })
 
     return c.json({ success: 'Cabo criado' }, 201)
   })
+  .post(
+    '/properties',
+    zValidator('json', insertCablePropertySchema),
+    async (c) => {
+      const validatedFields = c.req.valid('json')
+
+      if (!validatedFields) return c.json({ error: 'Campos inválidos' }, 400)
+
+      return c.json({ success: 'Propriedade criada' }, 200)
+    }
+  )
   .patch(
     '/:id',
-    zValidator('param', z.object({ id: z.string().optional() })),
+    zValidator('param', z.object({ id: z.number().optional() })),
     zValidator('json', insertCableSchema),
     async (c) => {
       const { id } = c.req.valid('param')

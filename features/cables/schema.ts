@@ -15,3 +15,10 @@ export const insertCableDefaultValues: InsertCableFormValues = {
   name: '',
   position: [],
 }
+
+export const insertCablePropertySchema = z.object({
+  id: z.string(),
+  co2: z.string(),
+  temperature: z.string(),
+  humidity: z.string(),
+})
