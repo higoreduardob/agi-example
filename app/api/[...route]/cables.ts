@@ -34,7 +34,7 @@ const app = new Hono()
       if (!validatedFields) return c.json({ error: 'Campos inválidos' }, 400)
 
       await db.cPJson.create({
-        data: { ...validatedFields, cableId: Number(cableId) },
+        data: { data: validatedFields, cableId: Number(cableId) },
       })
 
       return c.json({ success: 'Propriedade cadastrada' }, 201)
