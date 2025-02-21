@@ -1,14 +1,14 @@
 'use client'
 
-import { GrainPropsType } from '@/types/enum'
+// import { GrainPropsType } from '@/types/enum'
 
-import { useFilterGrainPropsType } from '@/hooks/use-filters'
+// import { useFilterGrainPropsType } from '@/hooks/use-filters'
 
-import { CardCable } from '@/components/card-cable'
+// import { CardCable } from '@/components/card-cable'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { useNewCable } from '@/features/cables/hooks/use-new-cable'
-import { useGetCables } from '@/features/cables/api/use-get-cables'
+// import { useGetCables } from '@/features/cables/api/use-get-cables'
 import { useGetCablesProperties } from '@/features/cables/api/use-get-cables-properties'
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
   // const isLoading = cablesQuery.isLoading
 
-  const { type } = useFilterGrainPropsType()
+  // const { type } = useFilterGrainPropsType()
 
   console.log(cables)
 
