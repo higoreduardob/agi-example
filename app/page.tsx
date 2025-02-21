@@ -21,6 +21,14 @@ export default function Home() {
 
   // const { type } = useFilterGrainPropsType()
 
+  if (cablesQuery.isLoading) {
+    return null
+  }
+
+  if (!cables) {
+    return null
+  }
+
   console.log(cables)
 
   return (
@@ -32,7 +40,7 @@ export default function Home() {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-2 justify-center">
+      <div className="bg-black text-white">
         {/* {cables.map((cable, index) => (
           <CardCable
             key={index}
@@ -40,6 +48,14 @@ export default function Home() {
             grainPropType={type as GrainPropsType}
           />
         ))} */}
+        {cables.map((cable, index) => (
+          <div key={index} className="p-4 border rounded-lg shadow">
+            {/* <h3 className="text-lg font-semibold">Cable ID: {cable.cableId}</h3> */}
+            <pre className="bg-gray-100 p-2 rounded text-xs">
+              {JSON.stringify(cable.data, null, 2)}
+            </pre>
+          </div>
+        ))}
       </div>
     </div>
   )
