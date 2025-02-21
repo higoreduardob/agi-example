@@ -15,7 +15,7 @@ const app = new Hono()
     return c.text('Hono!')
   })
   .get('/properties/json', async (c) => {
-    const data = await db.cablePropertyJson.findMany({})
+    const data = await db.cPJson.findMany({})
 
     return c.json({ data })
   })
@@ -33,7 +33,7 @@ const app = new Hono()
 
       if (!validatedFields) return c.json({ error: 'Campos inválidos' }, 400)
 
-      await db.cablePropertyJson.create({
+      await db.cPJson.create({
         data: { ...validatedFields, cableId },
       })
 

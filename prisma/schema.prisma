@@ -15,7 +15,7 @@ model Cable {
   createdAt DateTime @default(now())
 
   properties     CableProperty[]
-  propertiesJson CablePropertyJson[]
+  propertiesJson CPJson[]
 }
 
 model CableProperty {
@@ -32,7 +32,7 @@ model CableProperty {
   cable   Cable @relation(fields: [cableId], references: [id], onDelete: Cascade)
 }
 
-model CablePropertyJson {
+model CPJson {
   id   Int  @id @default(autoincrement())
   data Json
 
