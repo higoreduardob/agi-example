@@ -1,3 +1,4 @@
+import { InputJsonValue } from '@prisma/client/runtime/library'
 import { z } from 'zod'
 
 export const insertCableSchema = z.object({
@@ -24,9 +25,13 @@ export const insertCablePropertySchema = z.object({
 })
 
 export const insertCableJsonSchema = z.object({
-  data: z.object({
-    temperature: z.number(),
-    co2: z.number(),
-    humidity: z.number(),
-  }),
+  data: z.custom<InputJsonValue>(),
 })
+
+// export const insertCableJsonSchema = z.object({
+//   data: z.object({
+//     temperature: z.number(),
+//     co2: z.number(),
+//     humidity: z.number(),
+//   }),
+// })
