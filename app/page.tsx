@@ -40,7 +40,7 @@ export default function Home() {
         </Button>
       </div>
 
-      <div className="bg-black text-white">
+      <div className="bg-black">
         {/* {cables.map((cable, index) => (
           <CardCable
             key={index}
