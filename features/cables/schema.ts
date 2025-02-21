@@ -30,8 +30,8 @@ export const insertCablePropertySchema = z.object({
 
 export const insertCableJsonSchema = z.object({
   data: z.object({
-    temperature: z.number(),
-    co2: z.number(),
-    humidity: z.number(),
+    temperature: z.any(),
+    co2: z.any(),
+    humidity: z.any(),
   }),
 })
