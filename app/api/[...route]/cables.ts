@@ -22,7 +22,7 @@ const app = new Hono()
   .post(
     '/properties/json/:cableId',
     zValidator('json', insertCableJsonSchema),
-    zValidator('param', z.object({ cableId: z.number().optional() })),
+    zValidator('param', z.object({ cableId: z.string().optional() })),
     async (c) => {
       const { cableId } = c.req.valid('param')
       const validatedFields = c.req.valid('json')
@@ -34,7 +34,7 @@ const app = new Hono()
       if (!validatedFields) return c.json({ error: 'Campos inválidos' }, 400)
 
       await db.cPJson.create({
-        data: { ...validatedFields, cableId },
+        data: { ...validatedFields, cableId: Number(cableId) },
       })
 
       return c.json({ success: 'Propriedade cadastrada' }, 201)
