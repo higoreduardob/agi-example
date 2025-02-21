@@ -5,6 +5,7 @@ import { zValidator } from '@hono/zod-validator'
 import { db } from '@/lib/db'
 
 import {
+  insertCableJsonSchema,
   insertCablePropertySchema,
   insertCableSchema,
 } from '@/features/cables/schema'
@@ -13,6 +14,32 @@ const app = new Hono()
   .get('/hello', (c) => {
     return c.text('Hono!')
   })
+  .get('/properties/json', async (c) => {
+    const data = await db.cablePropertyJson.findMany({})
+
+    return c.json({ data })
+  })
+  .post(
+    '/properties/json/:cableId',
+    zValidator('json', insertCableJsonSchema),
+    zValidator('param', z.object({ cableId: z.number().optional() })),
+    async (c) => {
+      const { cableId } = c.req.valid('param')
+      const validatedFields = c.req.valid('json')
+
+      if (!cableId) {
+        return c.json({ error: 'Identificador não encontrado' }, 400)
+      }
+
+      if (!validatedFields) return c.json({ error: 'Campos inválidos' }, 400)
+
+      await db.cablePropertyJson.create({
+        data: { ...validatedFields, cableId },
+      })
+
+      return c.json({ success: 'Propriedade cadastrada' }, 201)
+    }
+  )
   .post('/', zValidator('json', insertCableSchema), async (c) => {
     const validatedFields = c.req.valid('json')
 

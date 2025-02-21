@@ -14,7 +14,8 @@ model Cable {
 
   createdAt DateTime @default(now())
 
-  properties CableProperty[]
+  properties     CableProperty[]
+  propertiesJson CablePropertyJson[]
 }
 
 model CableProperty {
@@ -26,6 +27,14 @@ model CableProperty {
   inactiveSensors Int[]
 
   createdAt DateTime @default(now())
+
+  cableId Int
+  cable   Cable @relation(fields: [cableId], references: [id], onDelete: Cascade)
+}
+
+model CablePropertyJson {
+  id   Int  @id @default(autoincrement())
+  data Json
 
   cableId Int
   cable   Cable @relation(fields: [cableId], references: [id], onDelete: Cascade)
